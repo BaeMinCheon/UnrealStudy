@@ -14,12 +14,16 @@ class UNREALSTUDY_API AMVCPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+	int32 GetSpeed();
+
 protected:
 	virtual void SetupInputComponent() override;
 	virtual void BeginPlay() override;
 	
 private:
-	void CountUp();
+	void SpeedUp();
+	void SpeedDown();
 
 	class AMVCPlayerState* MVCPlayerState;
 };
