@@ -14,7 +14,6 @@ class UNREALSTUDY_API AMVCGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
-	
-	
-	
+public:
+	AMVCGameMode();
 };

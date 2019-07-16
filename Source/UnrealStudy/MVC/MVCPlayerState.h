@@ -14,7 +14,11 @@ class UNREALSTUDY_API AMVCPlayerState : public APlayerState
 {
 	GENERATED_BODY()
 	
+public:
+	AMVCPlayerState();
+
+	void AddCount();
 	
-	
-	
+protected:
+	int32 Counter;
 };

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MVCCharacter.h"
-
+#include "MVCPlayerController.h"
 
 // Sets default values
 AMVCCharacter::AMVCCharacter()
@@ -30,5 +30,17 @@ void AMVCCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis(TEXT("Forward"), this, &AMVCCharacter::MoveForward);
+	PlayerInputComponent->BindAxis(TEXT("Right"), this, &AMVCCharacter::MoveRight);
+}
+
+void AMVCCharacter::MoveForward(float NewAxisValue)
+{
+	AddMovementInput(GetActorForwardVector(), NewAxisValue);
+}
+
+void AMVCCharacter::MoveRight(float NewAxisValue)
+{
+	AddMovementInput(GetActorRightVector(), NewAxisValue);
 }
 
