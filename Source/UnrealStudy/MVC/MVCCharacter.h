@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "TestCharacter.generated.h"
+#include "MVCCharacter.generated.h"
 
 UCLASS()
-class UNREALSTUDY_API ATestCharacter : public ACharacter
+class UNREALSTUDY_API AMVCCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	ATestCharacter();
+	AMVCCharacter();
 
 protected:
 	// Called when the game starts or when spawned

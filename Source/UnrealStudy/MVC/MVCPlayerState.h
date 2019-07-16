@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameStateBase.h"
-#include "TestGameState.generated.h"
+#include "GameFramework/PlayerState.h"
+#include "MVCPlayerState.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UNREALSTUDY_API ATestGameState : public AGameStateBase
+class UNREALSTUDY_API AMVCPlayerState : public APlayerState
 {
 	GENERATED_BODY()
 	
