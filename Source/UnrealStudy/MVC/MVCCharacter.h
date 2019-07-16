@@ -29,4 +29,6 @@ public:
 private:
 	void MoveForward(float NewAxisValue);
 	void MoveRight(float NewAxisValue);
+
+	class AMVCPlayerController* MVCPlayerController;
 };

@@ -17,8 +17,10 @@ class UNREALSTUDY_API AMVCPlayerState : public APlayerState
 public:
 	AMVCPlayerState();
 
-	void AddCount();
-	
+	int32 GetProperty(FString Key);
+	void AddProperty(FString Key);
+	void SubtractProperty(FString Key);
+
 protected:
-	int32 Counter;
+	TMap<FString, int32> PropertyMap;
 };
