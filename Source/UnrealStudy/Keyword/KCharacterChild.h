@@ -39,6 +39,6 @@ protected:
 private:
 	void KAction();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void Foo();
 };
