@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameModeBase.h"
+#include "GameFramework/GameMode.h"
 #include "KGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UNREALSTUDY_API AKGameMode : public AGameModeBase
+class UNREALSTUDY_API AKGameMode : public AGameMode
 {
 	GENERATED_BODY()
 	

@@ -6,6 +6,8 @@
 #include "Keyword/KCharacterParent.h"
 #include "KCharacterChild.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FKDynamicMulticastDelegate);
+
 /**
  * 
  */
@@ -15,6 +17,10 @@ class UNREALSTUDY_API AKCharacterChild : public AKCharacterParent
 	GENERATED_BODY()
 	
 public:
+	AKCharacterChild();
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 	UPROPERTY(config)
 	int32 TestInt;
 
@@ -24,6 +30,15 @@ public:
 	UPROPERTY(config)
 	TArray<FSoftObjectPath> TestPaths;
 
+	UPROPERTY(BlueprintAssignable)
+	FKDynamicMulticastDelegate DynamicMulticastDelegate;
+
 protected:
 	void BeginPlay() override;
+
+private:
+	void KAction();
+
+	UFUNCTION()
+	void Foo();
 };
