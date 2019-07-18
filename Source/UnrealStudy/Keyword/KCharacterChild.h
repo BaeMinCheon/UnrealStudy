@@ -30,7 +30,7 @@ public:
 	UPROPERTY(config)
 	TArray<FSoftObjectPath> TestPaths;
 
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FKDynamicMulticastDelegate DynamicMulticastDelegate;
 
 protected:
