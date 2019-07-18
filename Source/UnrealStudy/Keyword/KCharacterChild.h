@@ -21,10 +21,10 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(config, BlueprintReadOnly, Category="Property|Int")
+	UPROPERTY(config, BlueprintReadOnly, Category="Property|Int", EditAnywhere)
 	int32 TestInt;
 
-	UPROPERTY(config, BlueprintReadWrite, Category="Property|Float")
+	UPROPERTY(config, BlueprintReadWrite, Category="Property|Float", EditDefaultsOnly)
 	float TestFloat;
 	
 	UPROPERTY(config)
