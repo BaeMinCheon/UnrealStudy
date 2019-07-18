@@ -36,4 +36,6 @@ void AKCharacterChild::KAction()
 void AKCharacterChild::Foo()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Foo()"));
+
+	BlueprintFoo();
 }

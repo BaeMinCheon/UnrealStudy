@@ -36,6 +36,9 @@ public:
 protected:
 	void BeginPlay() override;
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void BlueprintFoo();
+
 private:
 	void KAction();
 
