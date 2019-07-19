@@ -28,6 +28,11 @@ void AKCharacterChild::BeginPlay()
 	}
 }
 
+void AKCharacterChild::BlueprintFuu_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Fuu() using cpp"));
+}
+
 void AKCharacterChild::KAction()
 {
 	DynamicMulticastDelegate.Broadcast();

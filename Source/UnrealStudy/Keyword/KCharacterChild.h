@@ -39,6 +39,9 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void BlueprintFoo();
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void BlueprintFuu();
+
 private:
 	void KAction();
 
