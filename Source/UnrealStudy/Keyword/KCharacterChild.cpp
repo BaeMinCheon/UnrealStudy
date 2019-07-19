@@ -49,3 +49,13 @@ int AKCharacterChild::GetPure()
 {
 	return 0;
 }
+
+void AKCharacterChild::Faa()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Faa()"));
+}
+
+void AKCharacterChild::FaaWithInt(int Number)
+{
+	UE_LOG(LogTemp, Warning, TEXT("FaaWithInt() -> %d"), Number);
+}

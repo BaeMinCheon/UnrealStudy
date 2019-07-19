@@ -50,4 +50,10 @@ private:
 
 	UFUNCTION(BlueprintPure)
 	int GetPure();
+
+	UFUNCTION(Exec)
+	void Faa();
+
+	UFUNCTION(Exec)
+	void FaaWithInt(int Number);
 };
