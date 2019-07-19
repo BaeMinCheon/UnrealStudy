@@ -1,12 +1,24 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "KCharacterChild.h"
+#include "Components/InputComponent.h"
 
+AKCharacterChild::AKCharacterChild()
+{
+	DynamicMulticastDelegate.AddDynamic(this, &AKCharacterChild::Foo);
+}
 
+void AKCharacterChild::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAction(TEXT("KAction"), EInputEvent::IE_Pressed, this, &AKCharacterChild::KAction);
+}
 
 void AKCharacterChild::BeginPlay()
 {
+	Super::BeginPlay();
+
 	auto DefaultObject = GetDefault<AKCharacterChild>(AKCharacterChild::StaticClass());
 	if (DefaultObject != nullptr)
 	{
@@ -14,4 +26,36 @@ void AKCharacterChild::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("%f"), DefaultObject->TestFloat);
 		UE_LOG(LogTemp, Warning, TEXT("%d"), DefaultObject->TestPaths.Num());
 	}
+}
+
+void AKCharacterChild::BlueprintFuu_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Fuu() using cpp"));
+}
+
+void AKCharacterChild::KAction()
+{
+	DynamicMulticastDelegate.Broadcast();
+}
+
+void AKCharacterChild::Foo()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Foo()"));
+
+	BlueprintFoo();
+}
+
+int AKCharacterChild::GetPure()
+{
+	return 0;
+}
+
+void AKCharacterChild::Faa()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Faa()"));
+}
+
+void AKCharacterChild::FaaWithInt(int Number)
+{
+	UE_LOG(LogTemp, Warning, TEXT("FaaWithInt() -> %d"), Number);
 }
