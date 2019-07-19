@@ -44,3 +44,8 @@ void AKCharacterChild::Foo()
 
 	BlueprintFoo();
 }
+
+int AKCharacterChild::GetPure()
+{
+	return 0;
+}

@@ -47,4 +47,7 @@ private:
 
 	UFUNCTION(BlueprintCallable)
 	void Foo();
+
+	UFUNCTION(BlueprintPure)
+	int GetPure();
 };
