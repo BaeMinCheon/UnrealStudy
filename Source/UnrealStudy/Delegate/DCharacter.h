@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "DCharacter.generated.h"
 
+DECLARE_DELEGATE_OneParam(FDDelegate, FString);
+
 UCLASS()
 class UNREALSTUDY_API ADCharacter : public ACharacter
 {
@@ -26,6 +28,14 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	
-	
+	FDDelegate SingleDelegate;
+
+private:
+	void PrintLog();
+
+	UFUNCTION()
+	void Func01(FString Message);
+
+	UFUNCTION()
+	void Func02(FString Message);
 };
