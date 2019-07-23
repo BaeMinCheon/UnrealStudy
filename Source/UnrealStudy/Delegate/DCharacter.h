@@ -7,6 +7,7 @@
 #include "DCharacter.generated.h"
 
 DECLARE_DELEGATE_OneParam(FDDelegate, FString);
+DECLARE_MULTICAST_DELEGATE_OneParam(FDMulticastDelegate, FString);
 
 UCLASS()
 class UNREALSTUDY_API ADCharacter : public ACharacter
@@ -14,21 +15,18 @@ class UNREALSTUDY_API ADCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	ADCharacter();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	FDDelegate SingleDelegate;
+
+	FDMulticastDelegate MultiDelegate;
 
 private:
 	void PrintLog();

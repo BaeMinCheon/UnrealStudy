@@ -9,6 +9,9 @@ ADCharacter::ADCharacter()
 
 	SingleDelegate.BindUFunction(this, FName("Func01"));
 	SingleDelegate.BindUFunction(this, FName("Func02"));
+
+	MultiDelegate.AddUFunction(this, FName("Func01"));
+	MultiDelegate.AddUFunction(this, FName("Func02"));
 }
 
 void ADCharacter::BeginPlay()
@@ -30,7 +33,8 @@ void ADCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void ADCharacter::PrintLog()
 {
-	SingleDelegate.Execute(TEXT("Single Delegate"));
+	//SingleDelegate.Execute(TEXT("Single Delegate"));
+	MultiDelegate.Broadcast(TEXT("Multi Delegate"));
 }
 
 void ADCharacter::Func01(FString Message)
