@@ -8,6 +8,7 @@
 
 DECLARE_DELEGATE_OneParam(FDDelegate, FString);
 DECLARE_MULTICAST_DELEGATE_OneParam(FDMulticastDelegate, FString);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FDDynamicDelegate, FString, Message);
 
 UCLASS()
 class UNREALSTUDY_API ADCharacter : public ACharacter
@@ -27,6 +28,12 @@ public:
 	FDDelegate SingleDelegate;
 
 	FDMulticastDelegate MultiDelegate;
+
+	UPROPERTY(BlueprintReadWrite)
+	FDDynamicDelegate DynamicDelegate01;
+
+	UPROPERTY(BlueprintReadWrite)
+	FDDynamicDelegate DynamicDelegate02;
 
 private:
 	void PrintLog();
