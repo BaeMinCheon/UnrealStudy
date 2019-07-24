@@ -15,6 +15,9 @@ ADCharacter::ADCharacter()
 
 	DynamicDelegate01.BindUFunction(this, FName("Func01"));
 	DynamicDelegate01.BindUFunction(this, FName("Func02"));
+
+	DynamicMultiDelegate.AddDynamic(this, &ADCharacter::Func01);
+	DynamicMultiDelegate.AddDynamic(this, &ADCharacter::Func02);
 }
 
 void ADCharacter::BeginPlay()
@@ -39,7 +42,8 @@ void ADCharacter::PrintLog()
 	//SingleDelegate.Execute(TEXT("Single Delegate"));
 	//MultiDelegate.Broadcast(TEXT("Multi Delegate"));
 	//DynamicDelegate01.Execute(TEXT("Dynamic Delegate 01"));
-	DynamicDelegate02.Execute(TEXT("Dynamic Delegate 02"));
+	//DynamicDelegate02.Execute(TEXT("Dynamic Delegate 02"));
+	DynamicMultiDelegate.Broadcast(TEXT("Dynamic Multi Delegate"));
 }
 
 void ADCharacter::Func01(FString Message)
