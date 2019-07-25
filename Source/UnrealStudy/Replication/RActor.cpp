@@ -9,13 +9,18 @@ ARActor::ARActor()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	SetMobility(EComponentMobility::Movable);
+
+	Speed = 0.0f;
 }
 
 void ARActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector Location = GetActorLocation();
-	Location += FVector(5.0f * DeltaTime, 0.0f, 0.0f);
-	SetActorLocation(Location);
+	if (HasAuthority())
+	{
+		FVector Location = GetActorLocation();
+		Location += FVector(Speed * DeltaTime, 0.0f, 0.0f);
+		SetActorLocation(Location);
+	}
 }

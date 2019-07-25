@@ -17,6 +17,9 @@ class UNREALSTUDY_API ARActor : public AStaticMeshActor
 public:
 	ARActor();
 
+	UPROPERTY(EditAnywhere)
+	float Speed;
+
 protected:
 	virtual void Tick(float DeltaTime) override;
 };
