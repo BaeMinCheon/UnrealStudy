@@ -17,7 +17,13 @@ class UNREALSTUDY_API ARActor : public AStaticMeshActor
 public:
 	ARActor();
 
-	UPROPERTY(EditAnywhere)
+	UFUNCTION(Exec)
+	void SpeedUp();
+
+	UFUNCTION(Exec)
+	void SpeedDown();
+
+	UPROPERTY(EditAnywhere, Replicated)
 	float Speed;
 
 protected:

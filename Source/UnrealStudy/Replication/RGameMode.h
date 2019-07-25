@@ -14,7 +14,6 @@ class UNREALSTUDY_API ARGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
-	
-	
-	
+public:
+	ARGameMode();
 };
