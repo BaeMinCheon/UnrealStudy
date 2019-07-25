@@ -1,9 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RActor.h"
-
-
-
+#include "UnrealStudy.h"
 
 ARActor::ARActor()
 {
@@ -13,14 +11,21 @@ ARActor::ARActor()
 	Speed = 0.0f;
 }
 
-void ARActor::Tick(float DeltaTime)
+void ARActor::BeginPlay()
 {
-	Super::Tick(DeltaTime);
+	Super::BeginPlay();
 
 	if (HasAuthority())
 	{
-		FVector Location = GetActorLocation();
-		Location += FVector(Speed * DeltaTime, 0.0f, 0.0f);
-		SetActorLocation(Location);
+		UE_LOG(LogServer, Warning, TEXT("I am server"));
 	}
+	else
+	{
+		UE_LOG(LogClient, Warning, TEXT("I am client"));
+	}
+}
+
+void ARActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 }
