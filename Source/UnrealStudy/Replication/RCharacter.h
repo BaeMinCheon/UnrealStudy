@@ -24,4 +24,6 @@ public:
 private:
 	void SpeedUp();
 	void SpeedDown();
+
+	float Speed;
 };
