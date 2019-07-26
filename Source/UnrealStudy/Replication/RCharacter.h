@@ -25,5 +25,14 @@ private:
 	void SpeedUp();
 	void SpeedDown();
 
+	UPROPERTY()
+	class USpringArmComponent* SpringArm;
+
+	UPROPERTY()
+	class UCameraComponent* Camera;
+
+	UPROPERTY()
+	class UStaticMeshComponent* StaticMesh;
+
 	float Speed;
 };
