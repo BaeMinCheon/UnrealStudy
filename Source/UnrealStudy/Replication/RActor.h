@@ -11,9 +11,10 @@ class UNREALSTUDY_API ARActor : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
+public:
 	ARActor();
 
+	UPROPERTY(Replicated)
 	float Speed;
 
 protected:

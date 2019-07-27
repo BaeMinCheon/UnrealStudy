@@ -1,13 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RActor.h"
+#include "Net/UnrealNetwork.h"
 #include "UnrealStudy.h"
 #include "Components/StaticMeshComponent.h"
 #include "ConstructorHelpers.h"
 
+void ARActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ARActor, Speed);
+}
+
 ARActor::ARActor()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	bReplicates = true;
 
 	SetActorEnableCollision(false);
 
