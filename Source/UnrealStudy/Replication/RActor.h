@@ -14,7 +14,7 @@ class UNREALSTUDY_API ARActor : public AActor
 public:
 	ARActor();
 
-	UPROPERTY(Replicated)
+	UPROPERTY(ReplicatedUsing=OnRep_Speed)
 	float Speed;
 
 protected:
@@ -24,5 +24,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	UFUNCTION()
+	void OnRep_Speed();
+
 	class UStaticMeshComponent* StaticMesh;
 };

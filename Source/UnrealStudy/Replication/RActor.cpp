@@ -52,3 +52,15 @@ void ARActor::Tick(float DeltaTime)
 	SetActorLocation(NewLocation);
 }
 
+void ARActor::OnRep_Speed()
+{
+	if (HasAuthority())
+	{
+		UE_LOG(LogServer, Warning, TEXT("speed has been replicated, which is %f"), Speed);
+	}
+	else
+	{
+		UE_LOG(LogClient, Warning, TEXT("speed has been replicated, which is %f"), Speed);
+	}
+}
+

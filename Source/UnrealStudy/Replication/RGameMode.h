@@ -16,16 +16,4 @@ class UNREALSTUDY_API ARGameMode : public AGameModeBase
 	
 public:
 	ARGameMode();
-
-private:
-	UFUNCTION(Exec)
-	void FindActor();
-
-	UFUNCTION(Exec)
-	void SpeedUp();
-
-	UFUNCTION(Exec)
-	void SpeedDown();
-
-	class ARActor* RActor;
 };
