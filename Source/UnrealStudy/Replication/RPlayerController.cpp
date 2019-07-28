@@ -9,15 +9,6 @@
 ARPlayerController::ARPlayerController()
 {
 	RActor = nullptr;
-
-	if (HasAuthority())
-	{
-		UE_LOG(LogServer, Warning, TEXT("PlayerController::BeginPlay() by %s"), *GetName());
-	}
-	else
-	{
-		UE_LOG(LogClient, Warning, TEXT("PlayerController::BeginPlay() by %s"), *GetName());
-	}
 }
 
 void ARPlayerController::FindActor()

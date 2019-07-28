@@ -31,6 +31,14 @@ private:
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_MoveRight(float NewAxisValue);
 
+	UFUNCTION(Exec)
+	void CallLog();
+
+	UFUNCTION(Client, Reliable)
+	void Client_Log();
+
+	FString GetTextFromRole();
+
 	class USpringArmComponent* SpringArm;
 	class UCameraComponent* Camera;
 	class UStaticMeshComponent* StaticMesh;

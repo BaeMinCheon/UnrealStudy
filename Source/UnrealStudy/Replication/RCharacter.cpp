@@ -38,11 +38,11 @@ void ARCharacter::BeginPlay()
 
 	if (HasAuthority())
 	{
-		UE_LOG(LogServer, Warning, TEXT("Character::BeginPlay() by %s"), *GetName());
+		UE_LOG(LogServer, Warning, TEXT("Character::BeginPlay() by %s with %s"), *GetName(), *GetTextFromRole());
 	}
 	else
 	{
-		UE_LOG(LogClient, Warning, TEXT("Character::BeginPlay() by %s"), *GetName());
+		UE_LOG(LogClient, Warning, TEXT("Character::BeginPlay() by %s with %s"), *GetName(), *GetTextFromRole());
 	}
 }
 
@@ -62,17 +62,25 @@ void ARCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void ARCharacter::MoveForward(float NewAxisValue)
 {
 	AddActorLocalOffset(GetActorForwardVector() * NewAxisValue);
-	Server_MoveForward(NewAxisValue);
+	if (NewAxisValue != 0.0f)
+	{
+		Server_MoveForward(NewAxisValue);
+	}
 }
 
 void ARCharacter::MoveRight(float NewAxisValue)
 {
 	AddActorLocalOffset(GetActorRightVector() * NewAxisValue);
-	Server_MoveRight(NewAxisValue);
+	if (NewAxisValue != 0.0f)
+	{
+		Server_MoveRight(NewAxisValue);
+	}
 }
 
 void ARCharacter::Server_MoveForward_Implementation(float NewAxisValue)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Server_MoveForward() by %s"), *GetName());
+
 	AddActorLocalOffset(GetActorForwardVector() * NewAxisValue);
 }
 
@@ -90,6 +98,8 @@ bool ARCharacter::Server_MoveForward_Validate(float NewAxisValue)
 
 void ARCharacter::Server_MoveRight_Implementation(float NewAxisValue)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Server_MoveRight() by %s"), *GetName());
+
 	AddActorLocalOffset(GetActorRightVector() * NewAxisValue);
 }
 
@@ -103,4 +113,40 @@ bool ARCharacter::Server_MoveRight_Validate(float NewAxisValue)
 	{
 		return false;
 	}
+}
+
+void ARCharacter::CallLog()
+{
+	Client_Log();
+}
+
+void ARCharacter::Client_Log_Implementation()
+{
+	UE_LOG(LogClient, Warning, TEXT("Client_Log() by %s with %s"), *GetName(), *GetTextFromRole());
+}
+
+FString ARCharacter::GetTextFromRole()
+{
+	FString ReturnValue;
+
+	switch (Role)
+	{
+	case ROLE_Authority:
+		ReturnValue = TEXT("Authority");
+		break;
+
+	case ROLE_AutonomousProxy:
+		ReturnValue = TEXT("AutonomousProxy");
+		break;
+
+	case ROLE_SimulatedProxy:
+		ReturnValue = TEXT("SimulatedProxy");
+		break;
+
+	default:
+		ReturnValue = TEXT("NaN");
+		break;
+	}
+
+	return ReturnValue;
 }

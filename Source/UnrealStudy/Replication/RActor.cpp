@@ -33,14 +33,14 @@ void ARActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (HasAuthority())
+	/*if (HasAuthority())
 	{
 		UE_LOG(LogServer, Warning, TEXT("Actor::BeginPlay() by %s"), *GetName());
 	}
 	else
 	{
 		UE_LOG(LogClient, Warning, TEXT("Actor::BeginPlay() by %s"), *GetName());
-	}
+	}*/
 }
 
 void ARActor::Tick(float DeltaTime)
