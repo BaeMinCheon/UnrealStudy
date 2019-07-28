@@ -32,10 +32,16 @@ private:
 	void Server_MoveRight(float NewAxisValue);
 
 	UFUNCTION(Exec)
-	void CallLog();
+	void CallClientLog();
 
 	UFUNCTION(Client, Reliable)
 	void Client_Log();
+
+	UFUNCTION(Exec)
+	void CallMulticastLog();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_Log();
 
 	FString GetTextFromRole();
 

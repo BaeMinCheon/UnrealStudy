@@ -115,7 +115,7 @@ bool ARCharacter::Server_MoveRight_Validate(float NewAxisValue)
 	}
 }
 
-void ARCharacter::CallLog()
+void ARCharacter::CallClientLog()
 {
 	Client_Log();
 }
@@ -123,6 +123,16 @@ void ARCharacter::CallLog()
 void ARCharacter::Client_Log_Implementation()
 {
 	UE_LOG(LogClient, Warning, TEXT("Client_Log() by %s with %s"), *GetName(), *GetTextFromRole());
+}
+
+void ARCharacter::CallMulticastLog()
+{
+	Multicast_Log();
+}
+
+void ARCharacter::Multicast_Log_Implementation()
+{
+	UE_LOG(LogClient, Warning, TEXT("Multicast_Log() by %s with %s"), *GetName(), *GetTextFromRole());
 }
 
 FString ARCharacter::GetTextFromRole()
