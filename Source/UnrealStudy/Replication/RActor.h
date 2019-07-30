@@ -27,5 +27,8 @@ private:
 	UFUNCTION()
 	void OnRep_Speed();
 
+	FString GetStringFromRole();
+	void LogString(FString Message);
+
 	class UStaticMeshComponent* StaticMesh;
 };

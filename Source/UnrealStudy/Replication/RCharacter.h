@@ -43,7 +43,8 @@ private:
 	UFUNCTION(NetMulticast, Reliable)
 	void Multicast_Log();
 
-	FString GetTextFromRole();
+	FString GetStringFromRole();
+	void LogString(FString Message);
 
 	class USpringArmComponent* SpringArm;
 	class UCameraComponent* Camera;

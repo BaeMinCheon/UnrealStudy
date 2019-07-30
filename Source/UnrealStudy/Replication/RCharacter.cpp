@@ -9,6 +9,9 @@
 #include "Camera/CameraComponent.h"
 #include "ConstructorHelpers.h"
 #include "Components/InputComponent.h"
+#include "Engine/Engine.h"
+#include "Engine/GameViewportClient.h"
+#include "Widgets/SWindow.h"
 
 ARCharacter::ARCharacter()
 {
@@ -36,14 +39,7 @@ void ARCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (HasAuthority())
-	{
-		UE_LOG(LogServer, Warning, TEXT("Character::BeginPlay() by %s with %s"), *GetName(), *GetTextFromRole());
-	}
-	else
-	{
-		UE_LOG(LogClient, Warning, TEXT("Character::BeginPlay() by %s with %s"), *GetName(), *GetTextFromRole());
-	}
+	LogString(TEXT("BeginPlay"));
 }
 
 void ARCharacter::Tick(float DeltaTime)
@@ -79,7 +75,7 @@ void ARCharacter::MoveRight(float NewAxisValue)
 
 void ARCharacter::Server_MoveForward_Implementation(float NewAxisValue)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Server_MoveForward() by %s"), *GetName());
+	LogString(TEXT("Server_MoveForward"));
 
 	AddActorLocalOffset(GetActorForwardVector() * NewAxisValue);
 }
@@ -98,7 +94,7 @@ bool ARCharacter::Server_MoveForward_Validate(float NewAxisValue)
 
 void ARCharacter::Server_MoveRight_Implementation(float NewAxisValue)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Server_MoveRight() by %s"), *GetName());
+	LogString(TEXT("Server_MoveRight"));
 
 	AddActorLocalOffset(GetActorRightVector() * NewAxisValue);
 }
@@ -122,7 +118,7 @@ void ARCharacter::CallClientLog()
 
 void ARCharacter::Client_Log_Implementation()
 {
-	UE_LOG(LogClient, Warning, TEXT("Client_Log() by %s with %s"), *GetName(), *GetTextFromRole());
+	LogString(TEXT("Client_Log"));
 }
 
 void ARCharacter::CallMulticastLog()
@@ -132,10 +128,10 @@ void ARCharacter::CallMulticastLog()
 
 void ARCharacter::Multicast_Log_Implementation()
 {
-	UE_LOG(LogClient, Warning, TEXT("Multicast_Log() by %s with %s"), *GetName(), *GetTextFromRole());
+	LogString(TEXT("Multicast_Log"));
 }
 
-FString ARCharacter::GetTextFromRole()
+FString ARCharacter::GetStringFromRole()
 {
 	FString ReturnValue;
 
@@ -159,4 +155,30 @@ FString ARCharacter::GetTextFromRole()
 	}
 
 	return ReturnValue;
+}
+
+void ARCharacter::LogString(FString Message)
+{
+	FString ActorName = GetName();
+	FString ActorRole = GetStringFromRole();
+	FString WindowTitle;
+	if (GEngine->GameViewport != nullptr)
+	{
+		WindowTitle = GEngine->GameViewport->GetWindow()->GetTitle().ToString();
+	}
+	else
+	{
+		WindowTitle = TEXT("Server");
+	}
+
+	FString Log = FString::Printf(TEXT("[%s] by [%s] with [%s] in [%s]"), *Message, *ActorName, *ActorRole, *WindowTitle);
+	GEngine->AddOnScreenDebugMessage(-1, 60.0f, FColor::White, Log);
+	/*if (HasAuthority())
+	{
+		UE_LOG(LogServer, Warning, TEXT("%s"), *Log);
+	}
+	else
+	{
+		UE_LOG(LogClient, Warning, TEXT("%s"), *Log);
+	}*/
 }
