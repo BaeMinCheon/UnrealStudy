@@ -5,6 +5,9 @@
 #include "Engine/World.h"
 #include "RActor.h"
 #include "UnrealStudy.h"
+#include "Engine/Engine.h"
+#include "Engine/GameViewportClient.h"
+#include "Widgets/SWindow.h"
 
 ARPlayerController::ARPlayerController()
 {
@@ -22,7 +25,7 @@ void ARPlayerController::FindActor()
 
 		if (RActor != nullptr)
 		{
-			LogText(TEXT("actor has been found"));
+			LogString(TEXT("actor has been found"));
 		}
 	}
 }
@@ -33,11 +36,11 @@ void ARPlayerController::SpeedUp()
 	{
 		RActor->Speed += 5.0f;
 
-		LogSpeed(TEXT("increased"));
+		LogString(FString::Printf(TEXT("speed increased, which is %f"), RActor->Speed));
 	}
 	else
 	{
-		LogText(TEXT("exec FindActor first"));
+		LogString(TEXT("exec FindActor first"));
 	}
 }
 
@@ -51,34 +54,62 @@ void ARPlayerController::SpeedDown()
 			RActor->Speed = 0.0f;
 		}
 
-		LogSpeed(TEXT("decreased"));
+		LogString(FString::Printf(TEXT("speed decreased, which is %f"), RActor->Speed));
 	}
 	else
 	{
-		LogText(TEXT("exec FindActor first"));
+		LogString(TEXT("exec FindActor first"));
 	}
 }
 
-void ARPlayerController::LogText(FString Message)
+FString ARPlayerController::GetStringFromRole()
 {
-	if (HasAuthority())
+	FString ReturnValue;
+
+	switch (Role)
 	{
-		UE_LOG(LogServer, Warning, TEXT("%s"), *Message);
+	case ROLE_Authority:
+		ReturnValue = TEXT("Authority");
+		break;
+
+	case ROLE_AutonomousProxy:
+		ReturnValue = TEXT("AutonomousProxy");
+		break;
+
+	case ROLE_SimulatedProxy:
+		ReturnValue = TEXT("SimulatedProxy");
+		break;
+
+	default:
+		ReturnValue = TEXT("NaN");
+		break;
 	}
-	else
-	{
-		UE_LOG(LogClient, Warning, TEXT("%s"), *Message);
-	}
+
+	return ReturnValue;
 }
 
-void ARPlayerController::LogSpeed(FString Message)
+void ARPlayerController::LogString(FString Message)
 {
-	if (HasAuthority())
+	FString ActorName = GetName();
+	FString ActorRole = GetStringFromRole();
+	FString WindowTitle;
+	if (GEngine->GameViewport != nullptr)
 	{
-		UE_LOG(LogServer, Warning, TEXT("speed has been %s, which is %f"), *Message, RActor->Speed);
+		WindowTitle = GEngine->GameViewport->GetWindow()->GetTitle().ToString();
 	}
 	else
 	{
-		UE_LOG(LogClient, Warning, TEXT("speed has been %s, which is %f"), *Message, RActor->Speed);
+		WindowTitle = TEXT("Server");
 	}
+
+	FString Log = FString::Printf(TEXT("[%s] by [%s] with [%s] in [%s]"), *Message, *ActorName, *ActorRole, *WindowTitle);
+	GEngine->AddOnScreenDebugMessage(-1, 60.0f, FColor::White, Log);
+	/*if (HasAuthority())
+	{
+		UE_LOG(LogServer, Warning, TEXT("%s"), *Log);
+	}
+	else
+	{
+		UE_LOG(LogClient, Warning, TEXT("%s"), *Log);
+	}*/
 }

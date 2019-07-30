@@ -27,8 +27,8 @@ private:
 	UFUNCTION(Exec)
 	void SpeedDown();
 
-	void LogText(FString Message);
-	void LogSpeed(FString Message);
+	FString GetStringFromRole();
+	void LogString(FString Message);
 
 	class ARActor* RActor;
 };

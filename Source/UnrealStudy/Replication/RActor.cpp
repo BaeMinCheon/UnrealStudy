@@ -5,6 +5,9 @@
 #include "UnrealStudy.h"
 #include "Components/StaticMeshComponent.h"
 #include "ConstructorHelpers.h"
+#include "Engine/Engine.h"
+#include "Engine/GameViewportClient.h"
+#include "Widgets/SWindow.h"
 
 void ARActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -33,14 +36,7 @@ void ARActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	/*if (HasAuthority())
-	{
-		UE_LOG(LogServer, Warning, TEXT("Actor::BeginPlay() by %s"), *GetName());
-	}
-	else
-	{
-		UE_LOG(LogClient, Warning, TEXT("Actor::BeginPlay() by %s"), *GetName());
-	}*/
+	LogString(TEXT("BeginPlay"));
 }
 
 void ARActor::Tick(float DeltaTime)
@@ -54,13 +50,58 @@ void ARActor::Tick(float DeltaTime)
 
 void ARActor::OnRep_Speed()
 {
-	if (HasAuthority())
+	LogString(FString::Printf(TEXT("speed replicated, which is %f"), Speed));
+}
+
+FString ARActor::GetStringFromRole()
+{
+	FString ReturnValue;
+
+	switch (Role)
 	{
-		UE_LOG(LogServer, Warning, TEXT("speed has been replicated, which is %f"), Speed);
+	case ROLE_Authority:
+		ReturnValue = TEXT("Authority");
+		break;
+
+	case ROLE_AutonomousProxy:
+		ReturnValue = TEXT("AutonomousProxy");
+		break;
+
+	case ROLE_SimulatedProxy:
+		ReturnValue = TEXT("SimulatedProxy");
+		break;
+
+	default:
+		ReturnValue = TEXT("NaN");
+		break;
+	}
+
+	return ReturnValue;
+}
+
+void ARActor::LogString(FString Message)
+{
+	FString ActorName = GetName();
+	FString ActorRole = GetStringFromRole();
+	FString WindowTitle;
+	if (GEngine->GameViewport != nullptr)
+	{
+		WindowTitle = GEngine->GameViewport->GetWindow()->GetTitle().ToString();
 	}
 	else
 	{
-		UE_LOG(LogClient, Warning, TEXT("speed has been replicated, which is %f"), Speed);
+		WindowTitle = TEXT("Server");
 	}
+
+	FString Log = FString::Printf(TEXT("[%s] by [%s] with [%s] in [%s]"), *Message, *ActorName, *ActorRole, *WindowTitle);
+	GEngine->AddOnScreenDebugMessage(-1, 60.0f, FColor::White, Log);
+	/*if (HasAuthority())
+	{
+		UE_LOG(LogServer, Warning, TEXT("%s"), *Log);
+	}
+	else
+	{
+		UE_LOG(LogClient, Warning, TEXT("%s"), *Log);
+	}*/
 }
 
