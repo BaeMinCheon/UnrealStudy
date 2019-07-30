@@ -12,6 +12,7 @@
 #include "Engine/Engine.h"
 #include "Engine/GameViewportClient.h"
 #include "Widgets/SWindow.h"
+#include "Kismet/GameplayStatics.h"
 
 ARCharacter::ARCharacter()
 {
@@ -111,9 +112,17 @@ bool ARCharacter::Server_MoveRight_Validate(float NewAxisValue)
 	}
 }
 
-void ARCharacter::CallClientLog()
+void ARCharacter::CallClientLog(int32 Index)
 {
-	Client_Log();
+	ARCharacter* Character = Cast<ARCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), Index));
+	if (Character != nullptr)
+	{
+		Character->Client_Log();
+	}
+	else
+	{
+		LogString(TEXT("wrong index"));
+	}
 }
 
 void ARCharacter::Client_Log_Implementation()

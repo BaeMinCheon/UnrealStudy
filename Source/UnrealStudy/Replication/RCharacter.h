@@ -32,7 +32,7 @@ private:
 	void Server_MoveRight(float NewAxisValue);
 
 	UFUNCTION(Exec)
-	void CallClientLog();
+	void CallClientLog(int32 Index = 0);
 
 	UFUNCTION(Client, Reliable)
 	void Client_Log();
